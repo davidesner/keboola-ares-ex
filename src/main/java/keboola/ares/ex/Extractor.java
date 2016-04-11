@@ -57,7 +57,7 @@ public class Extractor {
 
     private static final int REQUEST_LIMIT_DAY = 900;
     private static final int REQUEST_LIMIT_NIGHT = 4500;
-    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124"});
+    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124", "395"});
 
     private static int getRequestLimitByDate() {
         Calendar currDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
@@ -74,13 +74,13 @@ public class Extractor {
             System.out.print("No parameters provided.");
             System.exit(1);
         }
-//        /*Check if allowed project*/
-//        Map<String, String> env = System.getenv();
-//        String pr = env.get("KBC_PROJECTID");
-//        if (!ALLOWED_PROJECTS.contains(pr)) {
-//            System.err.println("The KBC project is not allowed to use this extractor!");
-//            System.exit(1);
-//        }
+        /*Check if allowed project*/
+        Map<String, String> env = System.getenv();
+        String pr = env.get("KBC_PROJECTID");
+        if (!ALLOWED_PROJECTS.contains(pr)) {
+            System.err.println("The KBC project is not allowed to use this extractor!");
+            System.exit(1);
+        }
         String dataPath = args[0];
         String outTablesPath = dataPath + File.separator + "out" + File.separator + "tables";
         String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables"; //parse config
@@ -274,7 +274,7 @@ public class Extractor {
                     for (AresInfoNaceRowBean b : nacesRows.getNaceRowList()) {
                         naceWriter.write(b, new String[]{"ico", "kod_nace"}, naceProcess);
                         //build manifest file
-                        ManifestFile naceMan = new ManifestFile(config.getParams().getBucket() + ".naceXico", true, new String[]{"ico", "kod_nace"}, ",", "\"");
+                        ManifestFile naceMan = new ManifestFile(null, true, new String[]{"ico", "kod_nace"}, ",", "\"");
                         ManifestBuilder.buildManifestFile(naceMan, outTablesPath, naceFile.getName());
                     }
                 }
@@ -286,7 +286,7 @@ public class Extractor {
                         if (firstRun) {
                             oboryWriter.writeHeader(new String[]{"ico", "kod_oboru", "obor_nazev"});
                             //build manifest file
-                            ManifestFile oboryMan = new ManifestFile(config.getParams().getBucket() + ".oboryXico", true, new String[]{"ico", "kod_oboru"}, ",", "\"");
+                            ManifestFile oboryMan = new ManifestFile(null, true, new String[]{"ico", "kod_oboru"}, ",", "\"");
                             ManifestBuilder.buildManifestFile(oboryMan, outTablesPath, oboryFile.getName());
                         }
                         for (AresInfoOborRowBean b : oboryRows.getNaceRowList()) {
@@ -304,7 +304,7 @@ public class Extractor {
             }
 
             //build manifest aresInfo file
-            ManifestFile aresMan = new ManifestFile(config.getParams().getBucket() + ".aresInfo", true, new String[]{"ico"}, ",", "\"");
+            ManifestFile aresMan = new ManifestFile(null, true, new String[]{"ico"}, ",", "\"");
             ManifestBuilder.buildManifestFile(aresMan, outTablesPath, aresInfoFile.getName());
             System.out.println("Download successful!");
         } catch (FileNotFoundException ex) {

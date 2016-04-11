@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class KBCParameters {
 
-    private final static String[] REQUIRED_FIELDS = {"bucket"};
+    private final static String[] REQUIRED_FIELDS = {};
     private final Map<String, Object> parametersMap;
 
     //default icoColumn
