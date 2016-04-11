@@ -274,7 +274,7 @@ public class Extractor {
                     for (AresInfoNaceRowBean b : nacesRows.getNaceRowList()) {
                         naceWriter.write(b, new String[]{"ico", "kod_nace"}, naceProcess);
                         //build manifest file
-                        ManifestFile naceMan = new ManifestFile(config.getParams().getBucket() + ".naceXico.csv", true, new String[]{"ico", "kod_nace"}, ",", "\"");
+                        ManifestFile naceMan = new ManifestFile(config.getParams().getBucket() + ".naceXico", true, new String[]{"ico", "kod_nace"}, ",", "\"");
                         ManifestBuilder.buildManifestFile(naceMan, outTablesPath, naceFile.getName());
                     }
                 }
@@ -286,7 +286,7 @@ public class Extractor {
                         if (firstRun) {
                             oboryWriter.writeHeader(new String[]{"ico", "kod_oboru", "obor_nazev"});
                             //build manifest file
-                            ManifestFile oboryMan = new ManifestFile(config.getParams().getBucket() + ".oboryXico.csv", true, new String[]{"ico", "kod_oboru"}, ",", "\"");
+                            ManifestFile oboryMan = new ManifestFile(config.getParams().getBucket() + ".oboryXico", true, new String[]{"ico", "kod_oboru"}, ",", "\"");
                             ManifestBuilder.buildManifestFile(oboryMan, outTablesPath, oboryFile.getName());
                         }
                         for (AresInfoOborRowBean b : oboryRows.getNaceRowList()) {
@@ -304,7 +304,7 @@ public class Extractor {
             }
 
             //build manifest aresInfo file
-            ManifestFile aresMan = new ManifestFile(config.getParams().getBucket() + ".aresInfo.csv", true, new String[]{"ico"}, ",", "\"");
+            ManifestFile aresMan = new ManifestFile(config.getParams().getBucket() + ".aresInfo", true, new String[]{"ico"}, ",", "\"");
             ManifestBuilder.buildManifestFile(aresMan, outTablesPath, aresInfoFile.getName());
             System.out.println("Download successful!");
         } catch (FileNotFoundException ex) {
