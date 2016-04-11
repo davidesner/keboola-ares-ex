@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:wsdlns="http://wwwinfo.mfcr.cz/ares/xml_doc/wsdl/standard.wsdl" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+xmlns="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" 
+xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+xmlns:req="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1" 
+xmlns:ans="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1"            
+xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4" 
+name="StandardService" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/wsdl/standard.wsdl">
+<documentation>verze: 2009-04-07, Copyright 2008 - 2009 Asseco Czech Republic a.s. Všechna práva vyhrazena</documentation>
+
+<types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1" schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1/ares_request_v_1.0.1.xsd"/>
+<import namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1" schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_answer/v_1.0.1/ares_answer_v_1.0.1.xsd"/>
+<import namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4" schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.4/ares_datatypes_v_1.0.4.xsd"/>
+</schema>
+</types>	
+
+<message name="GetHttpSoapStandardRequest">
+<part name="Request" element="req:Ares_dotazy"/>
+</message>
+<message name="GetHttpSoapStandardAnswer">
+<part name="Answer" element="ans:Ares_odpovedi"/>
+</message>		
+<message name="GetHttpGetStandardRequest">
+<part name="typ_vyhledavani" type="dtt:ares_vyber_typ"/>    
+<part name="ico" type="udt:ico"/>
+<part name="obchodni_firma" type="udt:obchodni_firma"/>
+<part name="nazev_obce" type="udt:nazev_obce"/>  
+<part name="kod_pf" type="udt:kod_pravni_formy"/>   
+<part name="typ_registru" type="dtt:typ_registru"/>
+<part name="diakritika" type="xsd:boolean"/>
+<part name="xml" type="dtt:vystup_format_xml"/>
+<part name="jazyk" type="dtt:jazyk_odkazu"/>					
+<part name="max_pocet" type="xsd:int"/>						
+<part name="aktivni" type="xsd:boolean"/>		
+<part name="datum_platnosti" type="xsd:date"/>
+<part name="ver" type="xsd:string"/>													
+</message>	
+<message name="GetHttpGetStandardAnswer">
+<part name="Answer" element="ans:Ares_odpovedi"/>
+</message>
+<message name="GetHttpStandardFault">
+<part name="Fault" element="ans:Ares_odpovedi"/>
+</message>		
+<portType name="HttpSoapStandard">
+<operation name="GetXmlFile">
+<documentation>Request/response operace pro získání xml výpisu STANDARD přes HTTP ve formátu SOAP</documentation>		
+<input name="StandardRequest" message="wsdlns:GetHttpSoapStandardRequest"/>
+<output name="StandardAnswer" message="wsdlns:GetHttpSoapStandardAnswer"/>
+<fault name="StandardFault" message="wsdlns:GetHttpStandardFault"/>			
+</operation>
+</portType>
+<portType name="HttpGetStandard">
+<operation name="GetXmlFile">
+<documentation>Request/response operace pro získání xml výpisu STANDARD přes HTTP GET</documentation>
+<input name="StandardRequest" message="wsdlns:GetHttpGetStandardRequest"/>
+<output name="StandardAnswer" message="wsdlns:GetHttpGetStandardAnswer"/>
+<fault name="StandardFault" message="wsdlns:GetHttpStandardFault"/>
+</operation>
+</portType>
+<binding name="HttpSoapStandardBinding" type="wsdlns:HttpSoapStandard">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="GetXmlFile">
+<soap:operation soapAction="" style="document"/>
+<input name="StandardRequest">
+<soap:body use="literal"/>
+</input>
+<output name="StandardAnswer">
+<soap:body use="literal"/>
+</output>
+<fault name="StandardFault">
+<soap:fault name ="StandardFault" use="literal"/>
+</fault>
+</operation>
+</binding>
+<binding name="HttpGetStandardBinding" type="wsdlns:HttpGetStandard">
+<http:binding verb="GET"/>
+<operation name="GetXmlFile">
+<http:operation location="/darv_std.cgi"/>
+<input name="StandardRequest">
+<http:urlEncoded/>
+</input>
+<output name="StandardAnswer">
+<mime:mimeXml part="Answer"/>
+</output>
+<fault name="StandardFault">
+<mime:mimeXml part="Fault"/>
+</fault>
+</operation>
+</binding>
+<service name="StandardService">
+<documentation>Služba poskytuje XML výpis Standard</documentation>
+<port name="StandardHttpSoapPort" binding="wsdlns:HttpSoapStandardBinding">
+<documentation>Port pro Http Soap rozhraní služby StandardService</documentation>		
+<soap:address location="http://wwwinfo.mfcr.cz/cgi-bin/ares/xar.cgi"/>
+</port>
+<port name="StandardHttpGetPort" binding="wsdlns:HttpGetStandardBinding">
+<documentation>Port pro Http Get rozhraní služby StandardService</documentation>
+<http:address location="http://wwwinfo.mfcr.cz/cgi-bin/ares"/>
+</port>
+</service>
+</definitions>

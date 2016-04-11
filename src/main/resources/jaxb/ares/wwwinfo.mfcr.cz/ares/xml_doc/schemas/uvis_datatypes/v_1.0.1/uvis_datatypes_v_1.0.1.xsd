@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2013-08-23">
+	<xsd:annotation>
+		<xsd:documentation xml:lang="cs">
+			
+			Návrh schématu XSD s definicemi obecných vlastních datových typů verze 1.0.1
+			(Slouží pro generování verze zkratek 1.0.3)
+			Toto schéma obsahuje definice obecných datových typů, používaných pro ostatní schémata ISVS. 
+			
+			Id datových prvků odkazují na dokument "Standard ISVS k prostorové identifikaci", který je dostupný na adrese  
+			http://aplikace.mvcr.cz/archiv2008/micr/files/460/uvis_s008.04.02_20020222.pdf
+
+		Copyright 2000-2001 ASD Software. Všechna práva vyhrazena
+		Copyright 2002-2007 PVT a.s.
+		Copyright 2007-2009 Asseco Czech Republic, a.s.
+		Copyright 2010-2013 Asseco Central Europe, a.s.
+		</xsd:documentation>
+		<xsd:appinfo>
+			<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.0/">
+				<rdf:Description rdf:about="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1">
+					<dc:title>XML Schema s definicemi obecných vlastních datových typů dle UVIS</dc:title>
+					<dc:creator>Pavel Srb (Pavel.Srb@asseco-ce.com)</dc:creator>
+					<dc:creator>Asseco Central Europe, a.s.</dc:creator>
+					<dc:subject>XML Schema; ARES; obecné datové typy; ÚVIS</dc:subject>
+					<dc:description>XML Schema s definicemi obecných vlastních datových typů dle UVIS</dc:description>
+					<dc:publisher>Ministerstvo financí České republiky </dc:publisher>
+					<dc:date>2010-07-16</dc:date>
+					<dc:type> XML Schema</dc:type>
+					<dc:identifier>http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1/uvis_datatypes_v_1.0.1.xsd</dc:identifier>
+					<dc:format>text/xml</dc:format>
+					<dc:language>cz</dc:language>
+					<dc:rights>© Asseco Central Europe, a.s. 2013</dc:rights>
+				</rdf:Description>
+			</rdf:RDF>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:complexType name="adresa_UIR">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Definice elementu obecné adresy </xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Kod_oblasti" type="kod_oblasti" minOccurs="0"/>
+			<xsd:element name="Kod_kraje" type="kod_kraje" minOccurs="0"/>
+			<xsd:element name="Kod_okresu" type="kod_okresu" minOccurs="0"/>
+			<xsd:element name="Kod_obce" type="kod_obce" minOccurs="0"/>
+			<xsd:element name="Kod_pobvod" type="kod_pobvod" minOccurs="0"/>
+			<xsd:element name="Kod_sobvod" type="kod_sobvod" minOccurs="0"/>
+			<xsd:element name="Kod_nobvod" type="kod_nobvod" minOccurs="0"/>
+			<xsd:element name="Kod_casti_obce" type="kod_casti_obce" minOccurs="0"/>
+			<xsd:element name="Kod_mestske_casti" type="kod_mestske_casti" minOccurs="0"/>
+			<xsd:element name="PSC" type="psc" minOccurs="0"/>
+			<xsd:element name="Kod_ulice" type="kod_ulice" minOccurs="0"/>
+			<xsd:element name="Cislo_domovni" type="cis_dom" minOccurs="0"/>
+			<xsd:element name="Typ_cislo_domovni" type="typ_cis_dom" minOccurs="0"/>
+			<xsd:element name="Cislo_orientacni" type="cis_or" minOccurs="0"/>
+			<xsd:element name="Pism_cislo_orientacni" type="pism_cislo_orientacni" minOccurs="0"/>
+			<xsd:element name="Kod_adresy" type="kod_adresy" minOccurs="0"/>
+			<xsd:element name="Kod_objektu" type="kod_objektu" minOccurs="0"/>
+			<xsd:element name="PCD" type="pcd" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="xslt_error_list">
+		<xsd:sequence>
+			<xsd:element name="Error" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Record_ID" type="xsd:int" minOccurs="0"/>
+						<xsd:element name="Error_type" type="error_type"/>
+						<xsd:element name="Error_ID" type="error_kod"/>
+						<xsd:element name="Error_text" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Error_list" type="xslt_error_list"/>
+	<xsd:simpleType name="cis_dom" id="AA0065">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Hodnota čísla domovního</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="9999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="cis_or" id="AA0067">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Číslo orientačního, povoleny číslicové znaky, přípustný interval hodnot 1a - 999z. (do 17.2.2010 byl integer na 4 znaky)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="pism_cislo_orientacni">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Písmeno čísla popisného (jen aplikace stdadr)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="cis_or_sp">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Číslo orientační celé, vč. písmenné části (jen aplikace EZP)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="5"/>
+			<xsd:minLength value="1"/>
+			
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="typ_cis_dom">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód typu čísla domovního dle SIS (1=číslo popisné, 2=číslo evidenční, objevuje se i 3)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:byte">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="3"/>
+		</xsd:restriction>
+		
+	</xsd:simpleType>
+	<xsd:simpleType name="dic" id="AA0757">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">DIČ organizace nebo fyzické osoby -  se skládá z kódu finančního úřadu (3 číslice) - kódu plátce daně (IČO nebo RČ), pomlčka není v UVISu definována, ale bývá součástí. Po vstupu do EU je prefix státu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="10"/>
+			<xsd:maxLength value="14"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="e_mail">
+		<xsd:annotation>
+			<xsd:documentation>Typ e-mail (nemá doposud typ ÚVIS) 
+      </xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="6"/>
+			<xsd:maxLength value="80"/>
+			<xsd:pattern value="[\-._a-zA-Z0-9]{1,40}@[\-._a-zA-Z0-9]{1,40}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="error_kod">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Číselník obecných chyb</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="versionMismatch">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">nalezen neplatný jmenný prostor pro obálku SOAP</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="MustUnderstand">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">pro dceřinný element záhlaví SOAP s nastavením atributu mustUnderstand na True přijímající strana zcela neporozuměla obsahu elementu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Client">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">klientská třída chyb, indikující, že zpráva není korektně formátována nebo že neobsahuje požadované informace</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Client.RequestNamespace">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">nepodporovaná verze dotazu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Client.SchemaNamespace">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">nepodporovaná verze namespace pro validaci parserem</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Client.Signature">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">chyba ověření identity odesílatele pomocí digitálního podpisu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Client.Validity">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">chyba ověření validity dokumentu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Client.WellFormedness">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">chyba ověření správného strukturování dokumentu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Client.XSLTNamespace">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">nepodporovaná verze namespace pro XSLT validaci</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Server">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">serverová třída chyb, indikující, že zpráva není zpracována z důvodu problémů na straně služby</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Server.DatabaseConsistence">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">nekonzistence dat v databázi služby</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Server.Program">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">interní chyba serverové aplikace</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Server.Service">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">obecná chyba serverové služby</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="Server.SQLStatement">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">interní chyba SQL dotazu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="error_type">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kódy typů klienstských chyb</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="global"/>
+			<xsd:enumeration value="local"/>
+			<xsd:enumeration value="info"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="ico" id="AA0017">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">IČO organizace nebo fyzické osoby</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="8"/>
+			<xsd:minLength value="8"/>
+			<xsd:pattern value="\d{8}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_adresy" id="AA0109">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód adresy</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="9"/>
+			<xsd:minLength value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_casti_obce" id="AA0175">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód části obce /dočasně min. 1 zn./</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_mestske_casti" id="AA0062">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód městské části</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="6"/>
+			<xsd:maxLength value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_obce" id="AA0054">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód obce  /dočasně min. 1 zn./</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_objektu" id="AA0108">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód objektu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="9"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_okresu" id="AA0052">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód okresu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="3811"/>
+			
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_pravni_formy" id="AA0019">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód právní formy ekonomického subjektu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:short">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_statu" id="AA0033">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód státu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_ulice" id="AA0107">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód ulice</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="7"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_casti_obce" id="AA0055">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název části obce</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="48"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_mestske_casti" id="AA0061">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název městské části</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="48"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_obce" id="AA0053">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název obce</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="48"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_okresu" id="AA0051">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název okresu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="32"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_posty">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název poštovního úřadu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_pravni_formy">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název právní formy</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="133"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_statu" id="AA0034">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název státu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="240"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_ulice" id="AA0063">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název ulice</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="48"/>
+			
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="obchodni_firma" id="AA0020">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">název obchodní firmy</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="popis">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Obecný popis: jedná se o jeden řádek textu dlouhého maximálně 255 znaků. Po cca 80 znacích mohou následovat znaky CR + LF.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="255"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="popis_zkr">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Obecný popis zkrácený: jedná se o jeden řádek textu dlouhého maximálně 25 znaků</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="25"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="jmeno" id="AA0074">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Jméno fyzické osoby</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="25"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="prijmeni" id="AA0075">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Příjmení fyzické osoby</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="35"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="psc" id="AA0038">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Poštovní směrovací číslo</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="5"/>
+			<xsd:minLength value="5"/>
+			<xsd:pattern value="\d\d\d\d\d"/>
+			
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="rodne_cislo" id="AA0001">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Rodné číslo osoby</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="9"/>
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="telefon" id="AA0050">
+		<xsd:annotation>
+			<xsd:documentation>Typ telefonní číslo dle ÚVIS</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="33"/>
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="text">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Obecný popis formou textu: jedná se o obecný text, který bývá formátován do řádků, kdy je třeba toto formátování do řádků zachovat a doporučuje se prezentovat text s využitím neproporcionálního písma.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="titul_pred" id="AA0010">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Titul před jménem osoby</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="35"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="titul_za" id="AA0011">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Titul za jménem osoby</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="30"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="typ_adresy" id="AA0039">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kódy kvalifikátorů adresy</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:int">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">adresa organizace: u právnické osoby nebo fyzické osoby podnikající sídlo ekonomického subjektu (firmy) a pokud sídlo není určeno úplnou doručovací adresou, pak doručovací adresa</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">adresa provozní jednotky</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="3">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">pracoviště (jen tehdy, liší-li se od adresy organizace i od adresy provozní jednotky)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="4">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">trvalé bydliště u fyzické osoby (občana nebo cizince)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="5">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">přechodné bydliště u fyzické osoby (občana nebo cizince)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="6">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">stanoviště u vozidla, pohyblivého stroje, popř. nepohyblivého zařízení</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="7">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">místo události (týká se zejména matričních událostí, nehod, úrazů ap.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="9">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="cs">doručovací adresa - nejde-li o žádný z předchozích typů  (do tohoto typu patří též poste restante a poštovní přihrádka)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+	
+	<xsd:simpleType name="kod_oblasti" id="AA0171">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód oblasti</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="2"/>
+			<xsd:pattern value="\d\d"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_kraje" id="AA0173">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Kód kraje</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_pobvod" id="AA0185">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Předávací kód obvodu hlavního města Prahy</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1"/>
+			<xsd:maxLength value="4"/>
+		</xsd:restriction>
+		
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_sobvod" id="AA0183">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Předávací kód správního obvodu v  hlavním  městě Praze</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="kod_nobvod">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Předávací kód NUTS4-obvodu. Je jednoznačný v celé tabulce NOBVOD a neměnný v čase. Udržuje MPSV.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="pcd">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Počítačové číslo domu</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_oblasti">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název oblasti</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="32"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="nazev_kraje">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">Název kraje</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="32"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

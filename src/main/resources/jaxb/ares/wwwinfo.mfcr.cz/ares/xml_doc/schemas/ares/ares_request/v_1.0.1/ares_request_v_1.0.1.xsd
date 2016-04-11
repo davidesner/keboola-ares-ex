@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1" xmlns:dtt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.1" xmlns:udt="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" targetNamespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1" elementFormDefault="qualified" version="2010-10-12">
+	<xsd:annotation>
+		<xsd:documentation xml:lang="cs">
+Schéma pro dotazování registru ARES verze 1.0.1
+Copyright 2009 Asseco Czech Republic, a.s. Všechna práva vyhrazena
+Copyright Asseco Central Europe, a.s. 2010
+
+</xsd:documentation>
+		<xsd:appinfo>
+			<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.0/">
+				<rdf:Description rdf:about="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1">
+					<dc:title>XML Schema, Standard, request</dc:title>
+					<dc:creator>Pavel Srb (Pavel.Srb@asseco-ce.com)</dc:creator>
+					<dc:creator>Asseco Central Europe, a.s.</dc:creator>
+					<dc:subject>XML Schema; ARES; Standard; request</dc:subject>
+					<dc:description>Požadavek na detail Standard v ARES</dc:description>
+					<dc:publisher>Ministerstvo financí České republiky </dc:publisher>
+					<dc:date>2010-07-16</dc:date>
+					<dc:type> XML Schema</dc:type>
+					<dc:identifier>http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_request/v_1.0.1/ares_request_v_1.0.1.xsd</dc:identifier>
+					<dc:format>text/xml</dc:format>
+					<dc:language>cz</dc:language>
+					<dc:rights>© Asseco Central Europe, a.s. 2010</dc:rights>
+				</rdf:Description>
+			</rdf:RDF>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:import namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.1" schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/ares/ares_datatypes/v_1.0.1/ares_datatypes_v_1.0.1.xsd"/>
+	<xsd:import namespace="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1" schemaLocation="http://wwwinfo.mfcr.cz/ares/xml_doc/schemas/uvis_datatypes/v_1.0.1/uvis_datatypes_v_1.0.1.xsd"/>
+	<xsd:element name="Ares_dotazy">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Dotaz" type="dotaz" maxOccurs="unbounded"/>
+			</xsd:sequence>
+			<xsd:attribute name="dotaz_datum_cas" type="xsd:dateTime" use="required"/>
+			<xsd:attribute name="dotaz_pocet" type="xsd:int" use="required"/>
+			<xsd:attribute name="dotaz_typ" type="dtt:ares_dotaz_typ" use="required"/>
+			<xsd:attribute name="vystup_format" type="dtt:vystup_format" use="optional" default="XML"/>
+			<xsd:attribute name="validation_XSLT" type="xsd:string" use="required"/>
+			<xsd:attribute name="user_mail" type="udt:e_mail" use="required"/>
+			<xsd:attribute name="answerNamespaceRequired" type="xsd:anyURI" use="required"/>
+			<xsd:attribute name="Id" type="xsd:string" use="required"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="dotaz">
+		<xsd:sequence>
+			<xsd:element name="Pomocne_ID" type="xsd:int"/>
+			<xsd:element name="Typ_vyhledani" type="dtt:ares_vyber_typ"/>
+			<xsd:element name="Klicove_polozky" type="klicove_polozky"/>
+			<xsd:element name="Nazev_obce" type="udt:nazev_obce" minOccurs="0"/>
+			<xsd:element name="Pravni_forma" type="udt:kod_pravni_formy" minOccurs="0"/>
+			<xsd:element name="Datum_platnosti" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="Typ_registru" type="dtt:typ_registru" minOccurs="0"/>
+			<xsd:element name="Max_pocet" type="xsd:int" default="10" minOccurs="0"/>
+			<xsd:element name="Diakritika" type="xsd:boolean" default="true" minOccurs="0"/>
+			<xsd:element name="Aktivni" type="xsd:boolean" default="true" minOccurs="0"/>
+			<xsd:element name="Adr_puv" type="xsd:boolean" default="false" minOccurs="0"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="klicove_polozky">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="cs">
+Skupina klíčových elementů. 
+Jednotlivé elementy mohou být vynechány, musí být přítomen alespoň jeden. 
+Nebude-li ani jeden, je to považováno za závažnou chybu.
+Za závažnou chybu je považováno nenumerické ič či rč nebo ič delší než 8 znaků a rč kratší než 9 znaků nebo zadání názvu obchodní firmy, na které se vrátí více než Max_pocet odpovědí.
+Při zjištění deseti závažných chyb dojde k zablokování IP adresy uživatele!
+</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ICO" type="udt:ico" minOccurs="0"/>
+			<xsd:element name="Rodne_cislo" type="udt:rodne_cislo" minOccurs="0"/>
+			<xsd:element name="Obchodni_firma" type="udt:obchodni_firma" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
