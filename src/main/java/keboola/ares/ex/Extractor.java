@@ -275,7 +275,7 @@ public class Extractor {
                         naceWriter.write(b, new String[]{"ico", "kod_nace"}, naceProcess);
                         //build manifest file
                         ManifestFile naceMan = new ManifestFile(config.getParams().getBucket() + ".naceXico.csv", true, new String[]{"ico", "kod_nace"}, ",", "\"");
-                        ManifestBuilder.buildManifestFile(naceMan, outTablesPath, naceFile.getName() + ".manifest");
+                        ManifestBuilder.buildManifestFile(naceMan, outTablesPath, naceFile.getName());
                     }
                 }
                 //write obory
@@ -287,7 +287,7 @@ public class Extractor {
                             oboryWriter.writeHeader(new String[]{"ico", "kod_oboru", "obor_nazev"});
                             //build manifest file
                             ManifestFile oboryMan = new ManifestFile(config.getParams().getBucket() + ".oboryXico.csv", true, new String[]{"ico", "kod_oboru"}, ",", "\"");
-                            ManifestBuilder.buildManifestFile(oboryMan, outTablesPath, oboryFile.getName() + ".manifest");
+                            ManifestBuilder.buildManifestFile(oboryMan, outTablesPath, oboryFile.getName());
                         }
                         for (AresInfoOborRowBean b : oboryRows.getNaceRowList()) {
                             oboryWriter.write(b, new String[]{"ico", "kod_oboru", "obor_nazev"}, oboryProcess);
@@ -305,7 +305,7 @@ public class Extractor {
 
             //build manifest aresInfo file
             ManifestFile aresMan = new ManifestFile(config.getParams().getBucket() + ".aresInfo.csv", true, new String[]{"ico"}, ",", "\"");
-            ManifestBuilder.buildManifestFile(aresMan, outTablesPath, aresInfoFile.getName() + ".manifest");
+            ManifestBuilder.buildManifestFile(aresMan, outTablesPath, aresInfoFile.getName());
             System.out.println("Download successful!");
         } catch (FileNotFoundException ex) {
             System.err.println("Error retrieving ARES info. " + ex.getMessage());
