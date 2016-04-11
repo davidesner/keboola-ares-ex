@@ -74,13 +74,13 @@ public class Extractor {
             System.out.print("No parameters provided.");
             System.exit(1);
         }
-        /*Check if allowed project*/
-        Map<String, String> env = System.getenv();
-        String pr = env.get("KBC_PROJECTID");
-        if (!ALLOWED_PROJECTS.contains(pr)) {
-            System.err.println("The KBC project is not allowed to use this extractor!");
-            System.exit(1);
-        }
+//        /*Check if allowed project*/
+//        Map<String, String> env = System.getenv();
+//        String pr = env.get("KBC_PROJECTID");
+//        if (!ALLOWED_PROJECTS.contains(pr)) {
+//            System.err.println("The KBC project is not allowed to use this extractor!");
+//            System.exit(1);
+//        }
         String dataPath = args[0];
         String outTablesPath = dataPath + File.separator + "out" + File.separator + "tables";
         String inTablesPath = dataPath + File.separator + "in" + File.separator + "tables"; //parse config

@@ -70,7 +70,7 @@ public class KBCParameters {
     public KBCParameters(@JsonProperty("bucket") String bucket, @JsonProperty("idColumn") String idColumn,
             @JsonProperty("icoColumn") String icoColumn, @JsonProperty("incremental") Boolean incremental,
             @JsonProperty("nace") Boolean nace, @JsonProperty("obor") Boolean obor,
-            @JsonProperty("arescolumns") List<String> columnList) throws ParseException {
+            @JsonProperty("aresColumns") List<String> columnList) throws ParseException {
         parametersMap = new HashMap<>();
 
         if (columnList == null) {
