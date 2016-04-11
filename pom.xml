@@ -66,37 +66,37 @@
                 <artifactId>jaxws-maven-plugin</artifactId>
                 <version>1.12</version>
                 <executions> 
-                    <execution> 
+                    <!--                    <execution> 
                         <id>wsimport-from-jdk</id>
                         <goals>
                             <goal>wsimport</goal>
                         </goals>
                         <configuration>
-                            <!-- using wsdl from an url -->
+                             using wsdl from an url 
                             <wsdlUrls>
                                 <wsdlUrl>
                                     http://wwwinfo.mfcr.cz/ares/xml_doc/wsdl/basic.wsdl                            
                                 </wsdlUrl>
                             </wsdlUrls>
-                            <!-- or using wsdls file directory -->
-                            <!-- <wsdlDirectory>src/wsdl</wsdlDirectory> -->
-                            <!-- which wsdl file -->
-                            <!-- <wsdlFiles> -->
-                            <!-- <wsdlFile>myWSDL.wsdl</wsdlFile> -->
-                            <!--</wsdlFiles> -->
-                            <!-- Keep generated files -->
+                             or using wsdls file directory 
+                             <wsdlDirectory>src/wsdl</wsdlDirectory> 
+                             which wsdl file 
+                             <wsdlFiles> 
+                             <wsdlFile>myWSDL.wsdl</wsdlFile> 
+                            </wsdlFiles> 
+                             Keep generated files 
                             <keep>true</keep> 
-                            <!--                            <encoding>CP1250</encoding>-->
+                            <encoding>CP1250</encoding>
                             <extension>true</extension>
                             <xjcArgs>
                                 <xjcArg>-XautoNameResolution</xjcArg>
                             </xjcArgs>                  
-                            <!-- Package name --> 
+                             Package name  
                             <packageName>cz.ares.basic</packageName> 
-                            <!-- generated source files destination-->
+                             generated source files destination
                             <sourceDestDir>src/main/java/</sourceDestDir>
                         </configuration>
-                    </execution>
+                    </execution>-->
                  
                     <!--                    <execution> 
                         <id>wsimport-ares-standard</id>
