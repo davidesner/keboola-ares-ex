@@ -41,7 +41,7 @@ import keboola.ares.ex.config.tableconfig.ManifestBuilder;
 import keboola.ares.ex.config.tableconfig.ManifestFile;
 import keboola.ares.ex.config.tableconfig.ManifestParser;
 import keboola.ares.ex.state.LastState;
-import keboola.ares.ex.state.YamlStateWriter;
+import keboola.ares.ex.state.JsonStateWriter;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanWriter;
@@ -120,7 +120,7 @@ public class Extractor {
             System.exit(1);
         }
         //retrieve stateFile
-        File stateFile = new File(dataPath + File.separator + "in" + File.separator + "state.yml");
+        File stateFile = new File(dataPath + File.separator + "in" + File.separator + "state.json");
         LastState lastState = null;
         if (stateFile.exists()) {
             try {
@@ -199,7 +199,7 @@ public class Extractor {
             ls = new LastState(currDate.getTime(), rowNumber);
         }
         try {
-            YamlStateWriter.writeStateFile(dataPath + File.separator + "out", ls);
+            JsonStateWriter.writeStateFile(dataPath + File.separator + "out", ls);
         } catch (IOException ex) {
             System.err.println("Error building state file " + ex.getMessage());
             System.exit(1);
