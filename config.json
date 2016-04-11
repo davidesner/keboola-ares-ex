@@ -1,0 +1,21 @@
+{
+        "bucket": "in.c-test",
+        "aresColumns": [
+          "obchodniFirma",
+          "obec",
+          "okres",
+          "mestskaCast",
+          "stat",
+          "ulice",
+          "psc",
+          "zahrPsc",
+          "pocetPrac",
+          "zanikl",
+          "platceDPH",
+          "datumVzniku",
+          "pravniForma",
+          "dic",
+          "nace",
+          "oboryCinnosti"
+        ]   
+}
