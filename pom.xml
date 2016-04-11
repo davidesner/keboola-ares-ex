@@ -58,7 +58,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>keboola.bingads.ex.Runner</mainClass>                  
+                    <mainClass>keboola.ares.ex.Extractor</mainClass>                  
                 </configuration>
             </plugin>
             <plugin> 
