@@ -86,7 +86,7 @@
                             <!--</wsdlFiles> -->
                             <!-- Keep generated files -->
                             <keep>true</keep> 
-                            <encoding>CP1250</encoding>
+                            <!--                            <encoding>CP1250</encoding>-->
                             <extension>true</extension>
                             <xjcArgs>
                                 <xjcArg>-XautoNameResolution</xjcArg>
