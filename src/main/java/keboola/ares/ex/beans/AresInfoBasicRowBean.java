@@ -67,7 +67,7 @@ public class AresInfoBasicRowBean {
                 this.platceDPH = 1;
             } else {
                 this.dic = null;
-                this.platceDPH = 1;
+                this.platceDPH = 0;
             }
             this.datumVzniku = res.getDV().toString();
             this.pravniForma = res.getPF().getNPF();
