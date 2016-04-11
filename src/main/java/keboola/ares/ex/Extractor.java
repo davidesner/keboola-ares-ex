@@ -18,6 +18,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,6 +57,7 @@ public class Extractor {
 
     private static final int REQUEST_LIMIT_DAY = 900;
     private static final int REQUEST_LIMIT_NIGHT = 4500;
+    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124"});
 
     private static int getRequestLimitByDate() {
         Calendar currDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
@@ -70,6 +72,13 @@ public class Extractor {
 
         if (args.length == 0) {
             System.out.print("No parameters provided.");
+            System.exit(1);
+        }
+        /*Check if allowed project*/
+        Map<String, String> env = System.getenv();
+        String pr = env.get("KBC_PROJECTID");
+        if (!ALLOWED_PROJECTS.contains(pr)) {
+            System.err.println("The KBC project is not allowed to use this extractor!");
             System.exit(1);
         }
         String dataPath = args[0];
