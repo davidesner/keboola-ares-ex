@@ -52,7 +52,7 @@ import org.supercsv.prefs.CsvPreference;
  * @author David Esner <esnerda at gmail.com>
  * @created 2016
  */
-public class main {
+public class Extractor {
 
     private static final int REQUEST_LIMIT_DAY = 900;
     private static final int REQUEST_LIMIT_NIGHT = 4500;
@@ -323,7 +323,7 @@ public class main {
                 }
                 reader.close();
             } catch (IOException ex) {
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Extractor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

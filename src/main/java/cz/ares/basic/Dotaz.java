@@ -45,14 +45,14 @@ import javax.xml.datatype.XMLGregorianCalendar;
 public class Dotaz {
 
     @XmlElementRefs({
-        @XmlElementRef(name = "Datum_platnosti", type = JAXBElement.class),
         @XmlElementRef(name = "ID_vety", type = JAXBElement.class),
+        @XmlElementRef(name = "Datum_platnosti", type = JAXBElement.class),
+        @XmlElementRef(name = "ICO", type = JAXBElement.class),
         @XmlElementRef(name = "Rozsah", type = JAXBElement.class),
-        @XmlElementRef(name = "Pomocne_ID", type = JAXBElement.class),
-        @XmlElementRef(name = "Aktivni", type = JAXBElement.class),
-        @XmlElementRef(name = "Adr_puv", type = JAXBElement.class),
         @XmlElementRef(name = "Klic_ARES", type = JAXBElement.class),
-        @XmlElementRef(name = "ICO", type = JAXBElement.class)
+        @XmlElementRef(name = "Aktivni", type = JAXBElement.class),
+        @XmlElementRef(name = "Pomocne_ID", type = JAXBElement.class),
+        @XmlElementRef(name = "Adr_puv", type = JAXBElement.class)
     })
     protected List<JAXBElement<?>> content;
 
@@ -84,14 +84,14 @@ public class Dotaz {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link JAXBElement }{@code <}{@link XMLGregorianCalendar }{@code >}
      * {@link JAXBElement }{@code <}{@link Integer }{@code >}
+     * {@link JAXBElement }{@code <}{@link XMLGregorianCalendar }{@code >}
+     * {@link JAXBElement }{@code <}{@link String }{@code >}
      * {@link JAXBElement }{@code <}{@link Short }{@code >}
      * {@link JAXBElement }{@code <}{@link Integer }{@code >}
      * {@link JAXBElement }{@code <}{@link Boolean }{@code >}
-     * {@link JAXBElement }{@code <}{@link Boolean }{@code >}
      * {@link JAXBElement }{@code <}{@link Integer }{@code >}
-     * {@link JAXBElement }{@code <}{@link String }{@code >}
+     * {@link JAXBElement }{@code <}{@link Boolean }{@code >}
      * 
      * 
      */
