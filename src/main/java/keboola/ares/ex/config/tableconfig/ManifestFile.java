@@ -3,13 +3,20 @@
 package keboola.ares.ex.config.tableconfig;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 
 /**
  *
  * @author David Esner <esnerda at gmail.com>
  * @created 2016
  */
+@JsonInclude(Include.NON_NULL)
 public class ManifestFile {
 
     @JsonProperty("destination")
@@ -27,9 +34,9 @@ public class ManifestFile {
     @JsonProperty("columns")
     private String[] columns;
     @JsonProperty("rows_count")
-    private int rows_count;
+    private Integer rows_count;
     @JsonProperty("data_size_bytes")
-    private int data_size_bytes;
+    private Integer data_size_bytes;
 
     public ManifestFile() {
     }
@@ -45,8 +52,8 @@ public class ManifestFile {
     @JsonCreator
     public ManifestFile(@JsonProperty("destination") String destination, @JsonProperty("incremental") boolean incremental,
             @JsonProperty("primary_key") String[] primaryKey, @JsonProperty("delimiter") String delimiter,
-            @JsonProperty("enclosure") String enclosure, @JsonProperty("rows_count") int rows_count,
-            @JsonProperty("data_size_bytes") int data_size_bytes) {
+            @JsonProperty("enclosure") String enclosure, @JsonProperty("rows_count") Integer rows_count,
+            @JsonProperty("data_size_bytes") Integer data_size_bytes) {
 
         this.rows_count = rows_count;
         this.data_size_bytes = data_size_bytes;
@@ -75,19 +82,19 @@ public class ManifestFile {
         this.columns = columns;
     }
 
-    public int getRows_count() {
+    public Integer getRows_count() {
         return rows_count;
     }
 
-    public void setRows_count(int rows_count) {
+    public void setRows_count(Integer rows_count) {
         this.rows_count = rows_count;
     }
 
-    public int getData_size_bytes() {
+    public Integer getData_size_bytes() {
         return data_size_bytes;
     }
 
-    public void setData_size_bytes(int data_size_bytes) {
+    public void setData_size_bytes(Integer data_size_bytes) {
         this.data_size_bytes = data_size_bytes;
     }
 

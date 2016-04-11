@@ -178,7 +178,7 @@ public class Extractor {
 //check request limit
         boolean limitReset = false;
         if (lastRqCount + rowNumber > getRequestLimitByDate()) {
-            System.err.println("Request limit exceeded! The limit is " + getRequestLimitByDate() + " Limit resets after 6pm UTC+1.");
+            System.err.println("Request limit exceeded!(" + (lastRqCount + rowNumber) + ") The limit is " + getRequestLimitByDate() + " Limit resets after 6pm UTC+1.");
             System.exit(1);
         }
         //limit reset
