@@ -306,7 +306,7 @@ public class Extractor {
             //build manifest aresInfo file
             ManifestFile aresMan = new ManifestFile(config.getParams().getBucket() + ".aresInfo.csv", true, new String[]{"ico"}, ",", "\"");
             ManifestBuilder.buildManifestFile(aresMan, outTablesPath, aresInfoFile.getName() + ".manifest");
-            System.out.println("Downloading successful!");
+            System.out.println("Download successful!");
         } catch (FileNotFoundException ex) {
             System.err.println("Error retrieving ARES info. " + ex.getMessage());
             System.exit(1);

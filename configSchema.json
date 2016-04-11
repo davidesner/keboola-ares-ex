@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Ares extractor KBC configuration",
+  "description": "A product from Acme's catalog",
+  "type": "object",
+  "properties": {
+    "bucket": {
+      "description": "Name of the result Storage bucket",
+      "type": "string"
+    },
+    "arescolumns": {
+      "description": "List of ares fields to download.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "obchodniFirma",
+          "obec",
+          "okres",
+          "mestskaCast",
+          "stat",
+          "ulice",
+          "psc",
+          "zahrPsc",
+          "pocetPrac",
+          "zanikl",
+          "platceDPH",
+          "datumVzniku",
+          "pravniForma",
+          "dic",
+          "nace",
+          "oboryCinnosti"
+        ]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "bucket"
+  ]
+}
