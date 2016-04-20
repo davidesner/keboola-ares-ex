@@ -49,6 +49,17 @@ public class AresInfoBasicRowBean {
                 this.pocetPrac = null;
 
             } else {
+                System.out.println("WARNING: Cannot retrieve information for IC: " + ico + ". " + basicOdpoved.getOdpoved().get(0).getE().getET());
+                this.zanikl = null;
+                this.obchodniFirma = null;
+                this.stat = null;
+                this.obec = null;
+                this.okres = null;
+                this.mestskaCast = null;
+                this.ulice = null;
+                this.psc = null;
+                this.zahrPsc = null;
+                this.pocetPrac = null;
             }
         } else {
             VypisBasic2 res = basicOdpoved.getOdpoved().get(0).getVBAS().get(0);
