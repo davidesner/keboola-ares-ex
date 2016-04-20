@@ -58,8 +58,7 @@ public class KBCParameters {
         pravniForma,
         dic,
         nace,
-        oboryCinnosti,
-        ALL;
+        oboryCinnosti;
     }
 
     public KBCParameters() {
