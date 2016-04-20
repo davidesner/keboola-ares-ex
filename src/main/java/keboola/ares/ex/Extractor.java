@@ -166,7 +166,13 @@ public class Extractor {
                 System.err.println("Maximum row number in source file exceeded! The limit is " + getRequestLimitByDate());
                 System.exit(1);
             }
-            if (sourceMf.getPrimaryKey() == null) {
+            if (sourceMf.getPrimaryKey() != null) {
+                if (sourceMf.getPrimaryKey().length == 0) {
+                    System.out.println("Source file must contain primary key column with ICO!");
+                    System.err.println("Source file must contain primary column with ICO!!");
+                    System.exit(1);
+                }
+            } else {
                 System.out.println("Source file must contain primary key column with ICO!");
                 System.err.println("Source file must contain primary column with ICO!!");
                 System.exit(1);
