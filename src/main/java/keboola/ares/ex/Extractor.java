@@ -57,7 +57,7 @@ public class Extractor {
 
     private static final int REQUEST_LIMIT_DAY = 900;
     private static final int REQUEST_LIMIT_NIGHT = 4500;
-    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124", "395","1047"});
+    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124", "395", "1047"});
 
     private static int getRequestLimitByDate() {
         Calendar currDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
@@ -260,7 +260,7 @@ public class Extractor {
             List<AresInfoBasicRowBean> infoRows = new ArrayList();
             while ((line = csvreader.readNext()) != null) {
                 currIco = line[0];
-
+                System.out.println("ico: " + currIco);
                 AresOdpovedi resp = client.getBasicInfoByIco(currIco);
                 AresInfoBasicRowBean infoRow = new AresInfoBasicRowBean(resp, currIco);
                 infoRows.add(infoRow);
@@ -318,6 +318,7 @@ public class Extractor {
             System.exit(1);
         } catch (Exception ex) {
             System.err.println("Error retrieving ARES info. " + ex.getMessage());
+            ex.printStackTrace();
             System.exit(1);
         } finally {
             try {
