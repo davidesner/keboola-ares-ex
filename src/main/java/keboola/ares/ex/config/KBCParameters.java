@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class KBCParameters {
 
-    private final static String[] REQUIRED_FIELDS = {};
+    private final static String[] REQUIRED_FIELDS = {"aresColumns"};
     private final Map<String, Object> parametersMap;
 
     //default icoColumn
@@ -39,7 +39,7 @@ public class KBCParameters {
     //default true
     @JsonProperty("obor")
     private Boolean obor;
-    @JsonProperty("arescolumns")
+    @JsonProperty("aresColumns")
     private List<String> columnList;
 
     public enum SupportedColumns {
@@ -58,7 +58,8 @@ public class KBCParameters {
         pravniForma,
         dic,
         nace,
-        oboryCinnosti;
+        oboryCinnosti,
+        ALL;
     }
 
     public KBCParameters() {
@@ -74,6 +75,11 @@ public class KBCParameters {
         parametersMap = new HashMap<>();
 
         if (columnList == null) {
+            this.columnList = new ArrayList();
+            for (SupportedColumns sc : SupportedColumns.values()) {
+                this.columnList.add(sc.name());
+            }
+        } else if (columnList.contains("ALL")) {
             this.columnList = new ArrayList();
             for (SupportedColumns sc : SupportedColumns.values()) {
                 this.columnList.add(sc.name());
@@ -103,7 +109,7 @@ public class KBCParameters {
 
         //set param map
         // parametersMap.put("dateFrom", dateFrom);
-        parametersMap.put("bucket", bucket);
+        parametersMap.put("aresColumns", columnList);
 
         if (this.incremental == true && idColumn == null) {
             this.idColumn = icoColumn;

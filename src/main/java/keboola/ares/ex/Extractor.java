@@ -135,16 +135,33 @@ public class Extractor {
         /*check limits*/
         ManifestFile sourceMf;
         int rowNumber = 0;
+
+        //rowNumber = sourceMf.getRows_count();
+        /*Get accurate row number*/
+        BufferedReader bf;
+        try {
+            bf = new BufferedReader(new FileReader(sourceFile));
+            String s = "";
+            while ((s = bf.readLine()) != null && rowNumber < 900) {
+                rowNumber++;
+            }
+        } catch (FileNotFoundException ex) {
+            System.err.println("Source file " + sourceFileName + " does not exist!");
+            System.exit(1);
+        } catch (IOException ex) {
+            System.err.println("Unable to read source file: " + sourceFileName);
+            System.exit(1);
+        }
+
         try {
             File smf = new File(sourceFile.getAbsolutePath() + ".manifest");
             sourceMf = ManifestParser.parseFile(smf);
-            rowNumber = sourceMf.getRows_count();
             if (sourceMf.getColumns().length > 1) {
                 //System.out.println("Source file must contain only one column! " + sourceMf.getColumns().length + " columns found instead.");
                 System.err.println("Source file must contain only one column!" + sourceMf.getColumns().length + " columns found instead.");
                 System.exit(1);
             }
-            if (sourceMf.getRows_count() > getRequestLimitByDate()) {
+            if (rowNumber > getRequestLimitByDate()) {
                 System.out.println("Maximum row number in source file exceeded! The limit is " + getRequestLimitByDate());
                 System.err.println("Maximum row number in source file exceeded! The limit is " + getRequestLimitByDate());
                 System.exit(1);
@@ -205,7 +222,7 @@ public class Extractor {
             System.exit(1);
         }
 
-        System.out.println("Downloading ARES info. Request limit: " + (lastRqCount + rowNumber) + " out of " + getRequestLimitByDate());
+        System.out.println("Downloading ARES info. Request limit: " + (ls.getRqCount()) + " out of " + getRequestLimitByDate());
         ARESGetClient client = new ARESGetClient();
         Map<String, Integer> header = new HashMap();
         Map<String, Integer> newHeader = new HashMap();
@@ -260,7 +277,6 @@ public class Extractor {
             List<AresInfoBasicRowBean> infoRows = new ArrayList();
             while ((line = csvreader.readNext()) != null) {
                 currIco = line[0];
-                System.out.println("ico: " + currIco);
                 AresOdpovedi resp = client.getBasicInfoByIco(currIco);
                 AresInfoBasicRowBean infoRow = new AresInfoBasicRowBean(resp, currIco);
                 infoRows.add(infoRow);
