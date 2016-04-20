@@ -58,9 +58,12 @@ Tables are uploaded to default bucket (`in.c-esnerda-ex-ares-CONFIGURATION_NAME`
 
 ### Use case 1
 
-Downloads all supported fields - empty json configuration.
+Downloads all supported fields.
 
        {
+       "aresColumns": [
+              "ALL"
+            ]
         }
 
 ### Use case 2
