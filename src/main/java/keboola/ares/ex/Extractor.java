@@ -264,7 +264,9 @@ public class Extractor {
                 AresOdpovedi resp = client.getBasicInfoByIco(currIco);
                 AresInfoBasicRowBean infoRow = new AresInfoBasicRowBean(resp, currIco);
                 infoRows.add(infoRow);
-                //write NACE
+                if (infoRow.getZanikl() == null) {
+                    continue;//failed to get IC info
+                }                //write NACE
                 if (downloadNace && infoRow.getZanikl() == 0) {
                     List<Nace2> naces = resp.getOdpoved().get(0).getVBAS().get(0).getNace();
                     AresInfoNaceRowBeanList nacesRows = new AresInfoNaceRowBeanList(naces, currIco);
