@@ -30,16 +30,15 @@ The in-app limits per configuration are following:
 ## Configuration
 **NOTE:** Due to the limits applied, in order to run the extractor you need to request access for your project ID.
 
-Configuration is simple. It takes just single optional parameter:
+Configuration is simple. It takes just single required parameter:
 
 - **aresColumns** –
-	(OPT) list of ares fields to download. The names must match exactly
-	supported fields listed below. If the parameter is omitted all
-	supported columns are downloaded by default. 
+	(REQ) list of ares fields to download. The names must match exactly
+	supported fields listed below. To download all supported columns specify just single value `ALL`. 
 
 `aresColumns` supported values are:       
 
-    obchodniFirma, obec, okres, mestskaCast ,stat, ulice, psc, zahrPsc, pocetPrac, zanikl, platceDPH, datumVzniku, pravniForma, dic, nace, oboryCinnosti
+    ALL, obchodniFirma, obec, okres, mestskaCast ,stat, ulice, psc, zahrPsc, pocetPrac, zanikl, platceDPH, datumVzniku, pravniForma, dic, nace, oboryCinnosti
 
 ## Input
 
@@ -59,9 +58,12 @@ Tables are uploaded to default bucket (`in.c-esnerda-ex-ares-CONFIGURATION_NAME`
 
 ### Use case 1
 
-Downloads all supported fields - empty json configuration.
+Downloads all supported fields.
 
        {
+       "aresColumns": [
+              "ALL"
+            ]
         }
 
 ### Use case 2
