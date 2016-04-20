@@ -4,6 +4,8 @@ package keboola.ares.ex.beans;
 
 import cz.ares.basic.AresOdpovedi;
 import cz.ares.basic.VypisBasic2;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import keboola.ares.ex.client.ClientException;
 
 /**
@@ -26,6 +28,7 @@ public class AresInfoBasicRowBean {
     private Integer zanikl;
     private Integer platceDPH;
     private String datumVzniku;
+    private String lastUpdated;
 
     private String pravniForma;
     private String dic;
@@ -34,6 +37,7 @@ public class AresInfoBasicRowBean {
         if (basicOdpoved.getOdpoved().isEmpty()) {
             throw new ClientException("The result is empty!");
         }
+        this.setLastUpdatedToCurrent();
         this.ico = ico;
         if (basicOdpoved.getOdpoved().get(0).getVBAS() == null || basicOdpoved.getOdpoved().get(0).getVBAS().isEmpty()) {
             if (basicOdpoved.getOdpoved().get(0).getE().getET().equals("Chyba 61 - subjekt zanikl")) {
@@ -83,6 +87,19 @@ public class AresInfoBasicRowBean {
             this.datumVzniku = res.getDV().toString();
             this.pravniForma = res.getPF().getNPF();
         }
+    }
+
+    public String getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(String lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    private void setLastUpdatedToCurrent() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        this.lastUpdated = format.format(Calendar.getInstance().getTime());
     }
 
     public String getIco() {

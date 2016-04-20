@@ -260,6 +260,7 @@ public class Extractor {
             /*Set mapping according to chosen columns*/
             Set<String> columnMapping = new HashSet();
             columnMapping.add("ico");
+            columnMapping.add("lastUpdated");
             for (String colName : config.getParams().getColumnList()) {
                 columnMapping.add(colName);
             }
