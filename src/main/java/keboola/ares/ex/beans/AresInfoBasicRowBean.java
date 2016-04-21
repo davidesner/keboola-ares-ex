@@ -68,15 +68,33 @@ public class AresInfoBasicRowBean {
         } else {
             VypisBasic2 res = basicOdpoved.getOdpoved().get(0).getVBAS().get(0);
             this.zanikl = 0;
-            this.obchodniFirma = res.getOF().getValue();
-            this.stat = res.getAA().getNS();
-            this.obec = res.getAA().getN();
-            this.okres = res.getAA().getNOK();
-            this.mestskaCast = res.getAA().getNMC();
-            this.ulice = res.getAA().getNU();
-            this.psc = res.getAA().getPSC();
-            this.zahrPsc = res.getAA().getZahrPSC();
-            this.pocetPrac = res.getKPP().getValue();
+            if (res.getOF() != null) {
+                this.obchodniFirma = res.getOF().getValue();
+            } else {
+                this.obchodniFirma = null;
+            }
+            if (res.getAA() != null) {
+                this.stat = res.getAA().getNS();
+                this.obec = res.getAA().getN();
+                this.okres = res.getAA().getNOK();
+                this.mestskaCast = res.getAA().getNMC();
+                this.ulice = res.getAA().getNU();
+                this.psc = res.getAA().getPSC();
+                this.zahrPsc = res.getAA().getZahrPSC();
+            } else {
+                this.stat = null;
+                this.obec = null;
+                this.okres = null;
+                this.mestskaCast = null;
+                this.ulice = null;
+                this.psc = null;
+                this.zahrPsc = null;
+            }
+            if (res.getKPP() != null) {
+                this.pocetPrac = res.getKPP().getValue();
+            } else {
+                this.pocetPrac = null;
+            }
             if (res.getDIC() != null) {
                 this.dic = res.getDIC().getValue();
                 this.platceDPH = 1;
@@ -84,8 +102,17 @@ public class AresInfoBasicRowBean {
                 this.dic = null;
                 this.platceDPH = 0;
             }
-            this.datumVzniku = res.getDV().toString();
-            this.pravniForma = res.getPF().getNPF();
+            if (res.getDV() != null) {
+                this.datumVzniku = res.getDV().toString();
+            } else {
+                this.datumVzniku = null;
+            }
+
+            if (res.getPF() != null) {
+                this.pravniForma = res.getPF().getNPF();
+            } else {
+                this.pravniForma = null;
+            }
         }
     }
 
