@@ -61,7 +61,7 @@ public class Extractor {
 
     private static int getRequestLimitByDate() {
         Calendar currDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
-        if (currDate.get(Calendar.HOUR_OF_DAY) < 18 && currDate.get(Calendar.HOUR_OF_DAY) > 8) {
+        if (currDate.get(Calendar.HOUR_OF_DAY) <= 18 && currDate.get(Calendar.HOUR_OF_DAY) >= 8) {
             return REQUEST_LIMIT_DAY;
         } else {
             return REQUEST_LIMIT_NIGHT;
