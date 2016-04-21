@@ -195,7 +195,7 @@ public class Extractor {
                 }
 
             } catch (NullPointerException ex) {
-                System.out.println("No mathing state.");
+                System.out.println("No matching state.");
             }
         }
 //check request limit
@@ -205,12 +205,12 @@ public class Extractor {
             System.exit(1);
         }
         //limit reset
-        if (lastRunDate.get(Calendar.HOUR_OF_DAY) < 18 && lastRunDate.get(Calendar.HOUR_OF_DAY) > 8
+        if (lastRunDate.get(Calendar.HOUR_OF_DAY) <= 18 && lastRunDate.get(Calendar.HOUR_OF_DAY) >= 8
                 && currDate.get(Calendar.HOUR_OF_DAY) > 18 && currDate.get(Calendar.HOUR_OF_DAY) < 8) {
             limitReset = true;
         }
         if (lastRunDate.get(Calendar.HOUR_OF_DAY) > 18 && lastRunDate.get(Calendar.HOUR_OF_DAY) < 8
-                && currDate.get(Calendar.HOUR_OF_DAY) < 18 && currDate.get(Calendar.HOUR_OF_DAY) > 8) {
+                && currDate.get(Calendar.HOUR_OF_DAY) <= 18 && currDate.get(Calendar.HOUR_OF_DAY) >= 8) {
             limitReset = true;
         }
 
