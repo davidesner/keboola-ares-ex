@@ -42,6 +42,8 @@ import keboola.ares.ex.config.tableconfig.ManifestFile;
 import keboola.ares.ex.config.tableconfig.ManifestParser;
 import keboola.ares.ex.state.LastState;
 import keboola.ares.ex.state.JsonStateWriter;
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanWriter;
@@ -205,13 +207,28 @@ public class Extractor {
             System.exit(1);
         }
         //limit reset
-        if (lastRunDate.get(Calendar.HOUR_OF_DAY) <= 18 && lastRunDate.get(Calendar.HOUR_OF_DAY) >= 8
-                && currDate.get(Calendar.HOUR_OF_DAY) > 18 && currDate.get(Calendar.HOUR_OF_DAY) < 8) {
-            limitReset = true;
+        int lastRunHour = lastRunDate.get(Calendar.HOUR_OF_DAY);
+        int currDateHour = currDate.get(Calendar.HOUR_OF_DAY);
+
+        DateTime currDateTime = new DateTime(currDate.getTime());
+        DateTime lastRunDateTime = new DateTime(lastRunDate.getTime());
+
+        if (currDateHour > 18 || currDateHour < 8) {
+            if (Hours.hoursBetween(lastRunDateTime, currDateTime).getHours() > 13) {
+                limitReset = true;
+            }
+            if (currDateHour <= 18 && currDateHour >= 8) {
+                limitReset = true;
+            }
         }
-        if (lastRunDate.get(Calendar.HOUR_OF_DAY) > 18 && lastRunDate.get(Calendar.HOUR_OF_DAY) < 8
-                && currDate.get(Calendar.HOUR_OF_DAY) <= 18 && currDate.get(Calendar.HOUR_OF_DAY) >= 8) {
-            limitReset = true;
+
+        if (currDateHour <= 18 && currDateHour >= 8) {
+            if (Hours.hoursBetween(lastRunDateTime, currDateTime).getHours() > 11) {
+                limitReset = true;
+            }
+            if (lastRunHour > 18 || lastRunHour < 8) {
+                limitReset = true;
+            }
         }
 
         //set new state

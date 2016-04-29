@@ -157,6 +157,12 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.1</version>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.3</version>
+        </dependency>
+
     </dependencies>
     <properties>
         <project.build.sourceEncoding>CP1250</project.build.sourceEncoding>
