@@ -217,7 +217,7 @@ public class Extractor {
             if (Hours.hoursBetween(lastRunDateTime, currDateTime).getHours() > 13) {
                 limitReset = true;
             }
-            if (currDateHour <= 18 && currDateHour >= 8) {
+            if (lastRunHour <= 18 && lastRunHour >= 8) {
                 limitReset = true;
             }
         }
