@@ -202,10 +202,7 @@ public class Extractor {
         }
 //check request limit
         boolean limitReset = false;
-        if (lastRqCount + rowNumber > getRequestLimitByDate()) {
-            System.err.println("Request limit exceeded!(" + (lastRqCount + rowNumber) + ") The limit is " + getRequestLimitByDate() + " Limit resets after 6pm UTC+1.");
-            System.exit(1);
-        }
+
         //limit reset
         int lastRunHour = lastRunDate.get(Calendar.HOUR_OF_DAY);
         int currDateHour = currDate.get(Calendar.HOUR_OF_DAY);
@@ -230,7 +227,10 @@ public class Extractor {
                 limitReset = true;
             }
         }
-
+        if (!limitReset && lastRqCount + rowNumber > getRequestLimitByDate()) {
+            System.err.println("Request limit exceeded!(" + (lastRqCount + rowNumber) + ") The limit is " + getRequestLimitByDate() + " Limit resets after 6pm UTC+1.");
+            System.exit(1);
+        }
         //set new state
         LastState ls = null;
         if (!limitReset) {
@@ -238,6 +238,7 @@ public class Extractor {
         } else {
             ls = new LastState(currDate.getTime(), rowNumber);
         }
+
         try {
             JsonStateWriter.writeStateFile(dataPath + File.separator + "out", ls);
         } catch (IOException ex) {
