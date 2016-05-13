@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Ares extractor KBC configuration",
-  "description": "A product from Acme's catalog",
+  "description": "Ares extractor KBC configuration",
   "type": "object",
   "properties": {
     "aresColumns": {
