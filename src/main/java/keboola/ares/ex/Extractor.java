@@ -324,14 +324,15 @@ public class Extractor {
                 //write obory
                 if (downloadObory && infoRow.getZanikl() == 0) {
                     OboryCinnosti2 obory = resp.getOdpoved().get(0).getVBAS().get(0).getOboryCinnosti();
+                    if (firstRun) {
+                        oboryWriter.writeHeader(new String[]{"ico", "kod_oboru", "obor_nazev"});
+                        //build manifest file
+                        ManifestFile oboryMan = new ManifestFile(null, true, new String[]{"ico", "kod_oboru"}, ",", "\"");
+                        ManifestBuilder.buildManifestFile(oboryMan, outTablesPath, oboryFile.getName());
+                    }
                     if (obory != null) {
                         AresInfoOborRowBeanList oboryRows = new AresInfoOborRowBeanList(obory, currIco);
-                        if (firstRun) {
-                            oboryWriter.writeHeader(new String[]{"ico", "kod_oboru", "obor_nazev"});
-                            //build manifest file
-                            ManifestFile oboryMan = new ManifestFile(null, true, new String[]{"ico", "kod_oboru"}, ",", "\"");
-                            ManifestBuilder.buildManifestFile(oboryMan, outTablesPath, oboryFile.getName());
-                        }
+
                         for (AresInfoOborRowBean b : oboryRows.getNaceRowList()) {
                             oboryWriter.write(b, new String[]{"ico", "kod_oboru", "obor_nazev"}, oboryProcess);
                         }
