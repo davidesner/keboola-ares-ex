@@ -4,10 +4,6 @@
   "description": "A product from Acme's catalog",
   "type": "object",
   "properties": {
-    "bucket": {
-      "description": "Name of the result Storage bucket",
-      "type": "string"
-    },
     "aresColumns": {
       "description": "List of ares fields to download.",
       "type": "array",
@@ -29,7 +25,8 @@
           "pravniForma",
           "dic",
           "nace",
-          "oboryCinnosti"
+          "oboryCinnosti",
+          "ALL"
         ]
       },
       "minItems": 0,
@@ -37,6 +34,6 @@
     }
   },
   "required": [
-    "bucket"
+    "aresColumns"
   ]
 }
