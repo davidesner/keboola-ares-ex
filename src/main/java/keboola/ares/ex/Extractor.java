@@ -307,29 +307,30 @@ public class Extractor {
                 infoRows.add(infoRow);
                 if (infoRow.getZanikl() == null) {
                     continue;//failed to get IC info
-                }                //write NACE
+                }
+                //write NACE
+                if (firstRun && downloadNace) {//write header
+                    naceWriter.writeHeader(new String[]{"ico", "kod_nace"});
+                    //build manifest file
+                    ManifestFile naceMan = new ManifestFile(null, true, new String[]{"ico", "kod_nace"}, ",", "\"");
+                    ManifestBuilder.buildManifestFile(naceMan, outTablesPath, naceFile.getName());
+                }
                 if (downloadNace && infoRow.getZanikl() == 0) {
                     List<Nace2> naces = resp.getOdpoved().get(0).getVBAS().get(0).getNace();
                     AresInfoNaceRowBeanList nacesRows = new AresInfoNaceRowBeanList(naces, currIco);
-                    if (firstRun) {
-                        naceWriter.writeHeader(new String[]{"ico", "kod_nace"});
-                    }
                     for (AresInfoNaceRowBean b : nacesRows.getNaceRowList()) {
                         naceWriter.write(b, new String[]{"ico", "kod_nace"}, naceProcess);
-                        //build manifest file
-                        ManifestFile naceMan = new ManifestFile(null, true, new String[]{"ico", "kod_nace"}, ",", "\"");
-                        ManifestBuilder.buildManifestFile(naceMan, outTablesPath, naceFile.getName());
                     }
                 }
                 //write obory
+                if (firstRun && downloadObory) {//write header
+                    oboryWriter.writeHeader(new String[]{"ico", "kod_oboru", "obor_nazev"});
+                    //build manifest file
+                    ManifestFile oboryMan = new ManifestFile(null, true, new String[]{"ico", "kod_oboru"}, ",", "\"");
+                    ManifestBuilder.buildManifestFile(oboryMan, outTablesPath, oboryFile.getName());
+                }
                 if (downloadObory && infoRow.getZanikl() == 0) {
                     OboryCinnosti2 obory = resp.getOdpoved().get(0).getVBAS().get(0).getOboryCinnosti();
-                    if (firstRun) {
-                        oboryWriter.writeHeader(new String[]{"ico", "kod_oboru", "obor_nazev"});
-                        //build manifest file
-                        ManifestFile oboryMan = new ManifestFile(null, true, new String[]{"ico", "kod_oboru"}, ",", "\"");
-                        ManifestBuilder.buildManifestFile(oboryMan, outTablesPath, oboryFile.getName());
-                    }
                     if (obory != null) {
                         AresInfoOborRowBeanList oboryRows = new AresInfoOborRowBeanList(obory, currIco);
 
