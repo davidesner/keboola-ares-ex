@@ -29,6 +29,17 @@ public class AresInfoBasicRowBean {
     private Integer platceDPH;
     private String datumVzniku;
     private String lastUpdated;
+    private String kodOblasti;
+    private String kodKraje;
+    private Integer kodOkresu;
+    private String kodObce;
+    private String kodPrazskehoObvodu;
+    private String kodNobvod;
+    private String kodCastiObce;
+    private String kodMestskeCasti;
+    private String kodUlice;
+    private String kodAdresy;
+    private String kodObjektu;
 
     private String pravniForma;
     private String dic;
@@ -37,33 +48,15 @@ public class AresInfoBasicRowBean {
         if (basicOdpoved.getOdpoved().isEmpty()) {
             throw new ClientException("The result is empty!");
         }
+        this.initAllVariables();
         this.setLastUpdatedToCurrent();
         this.ico = ico;
         if (basicOdpoved.getOdpoved().get(0).getVBAS() == null || basicOdpoved.getOdpoved().get(0).getVBAS().isEmpty()) {
             if (basicOdpoved.getOdpoved().get(0).getE().getET().equals("Chyba 61 - subjekt zanikl")) {
                 this.zanikl = 1;
-                this.obchodniFirma = null;
-                this.stat = null;
-                this.obec = null;
-                this.okres = null;
-                this.mestskaCast = null;
-                this.ulice = null;
-                this.psc = null;
-                this.zahrPsc = null;
-                this.pocetPrac = null;
 
             } else {
                 System.out.println("WARNING: Cannot retrieve information for IC: " + ico + ". " + basicOdpoved.getOdpoved().get(0).getE().getET());
-                this.zanikl = null;
-                this.obchodniFirma = null;
-                this.stat = null;
-                this.obec = null;
-                this.okres = null;
-                this.mestskaCast = null;
-                this.ulice = null;
-                this.psc = null;
-                this.zahrPsc = null;
-                this.pocetPrac = null;
             }
         } else {
             VypisBasic2 res = basicOdpoved.getOdpoved().get(0).getVBAS().get(0);
@@ -81,15 +74,22 @@ public class AresInfoBasicRowBean {
                 this.ulice = res.getAA().getNU();
                 this.psc = res.getAA().getPSC();
                 this.zahrPsc = res.getAA().getZahrPSC();
-            } else {
-                this.stat = null;
-                this.obec = null;
-                this.okres = null;
-                this.mestskaCast = null;
-                this.ulice = null;
-                this.psc = null;
-                this.zahrPsc = null;
+                if (res.getAA().getAU() != null) {
+                    this.kodKraje = res.getAA().getAU().getKK();
+                    this.kodOkresu = res.getAA().getAU().getKOK();
+                    this.kodObce = res.getAA().getAU().getKO();
+                    this.kodPrazskehoObvodu = res.getAA().getAU().getKPO();
+                    this.kodNobvod = res.getAA().getAU().getKN();
+                    this.kodCastiObce = res.getAA().getAU().getKCO();
+                    this.kodMestskeCasti = res.getAA().getAU().getKMC();
+                    this.kodUlice = res.getAA().getAU().getKUL();
+                    this.kodAdresy = res.getAA().getAU().getKA();
+                    this.kodObjektu = res.getAA().getAU().getKOB();
+                    this.kodOblasti = res.getAA().getAU().getKOL();
+                }
+
             }
+
             if (res.getKPP() != null) {
                 this.pocetPrac = res.getKPP().getValue();
             } else {
@@ -114,6 +114,34 @@ public class AresInfoBasicRowBean {
                 this.pravniForma = null;
             }
         }
+    }
+
+    private void initAllVariables() {
+        this.zanikl = null;
+        this.obchodniFirma = null;
+        this.stat = null;
+        this.obec = null;
+        this.okres = null;
+        this.mestskaCast = null;
+        this.ulice = null;
+        this.psc = null;
+        this.zahrPsc = null;
+        this.pocetPrac = null;
+        this.kodKraje = null;
+        this.kodOkresu = null;
+        this.kodObce = null;
+        this.kodOblasti = null;
+        this.kodPrazskehoObvodu = null;
+        this.kodNobvod = null;
+        this.kodCastiObce = null;
+        this.kodMestskeCasti = null;
+        this.kodUlice = null;
+        this.kodAdresy = null;
+        this.kodObjektu = null;
+        this.datumVzniku = null;
+        this.pravniForma = null;
+        this.platceDPH = null;
+        this.dic = null;
     }
 
     public String getLastUpdated() {
@@ -263,6 +291,94 @@ public class AresInfoBasicRowBean {
 
     public String getDic() {
         return dic;
+    }
+
+    public String getKodOblasti() {
+        return kodOblasti;
+    }
+
+    public void setKodOblasti(String kodOblasti) {
+        this.kodOblasti = kodOblasti;
+    }
+
+    public String getKodKraje() {
+        return kodKraje;
+    }
+
+    public void setKodKraje(String kodKraje) {
+        this.kodKraje = kodKraje;
+    }
+
+    public Integer getKodOkresu() {
+        return kodOkresu;
+    }
+
+    public void setKodOkresu(Integer kodOkresu) {
+        this.kodOkresu = kodOkresu;
+    }
+
+    public String getKodObce() {
+        return kodObce;
+    }
+
+    public void setKodObce(String kodObce) {
+        this.kodObce = kodObce;
+    }
+
+    public String getKodPrazskehoObvodu() {
+        return kodPrazskehoObvodu;
+    }
+
+    public void setKodPrazskehoObvodu(String kodPrazskehoObvodu) {
+        this.kodPrazskehoObvodu = kodPrazskehoObvodu;
+    }
+
+    public String getKodNobvod() {
+        return kodNobvod;
+    }
+
+    public void setKodNobvod(String kodNobvod) {
+        this.kodNobvod = kodNobvod;
+    }
+
+    public String getKodCastiObce() {
+        return kodCastiObce;
+    }
+
+    public void setKodCastiObce(String kodCastiObce) {
+        this.kodCastiObce = kodCastiObce;
+    }
+
+    public String getKodMestskeCasti() {
+        return kodMestskeCasti;
+    }
+
+    public void setKodMestskeCasti(String kodMestskeCasti) {
+        this.kodMestskeCasti = kodMestskeCasti;
+    }
+
+    public String getKodUlice() {
+        return kodUlice;
+    }
+
+    public void setKodUlice(String kodUlice) {
+        this.kodUlice = kodUlice;
+    }
+
+    public String getKodAdresy() {
+        return kodAdresy;
+    }
+
+    public void setKodAdresy(String kodAdresy) {
+        this.kodAdresy = kodAdresy;
+    }
+
+    public String getKodObjektu() {
+        return kodObjektu;
+    }
+
+    public void setKodObjektu(String kodObjektu) {
+        this.kodObjektu = kodObjektu;
     }
 
 }
