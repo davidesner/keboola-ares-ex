@@ -1,50 +1,52 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Ares extractor KBC configuration",
-  "description": "Ares extractor KBC configuration",
-  "type": "object",
-  "properties": {
-    "aresColumns": {
-      "description": "List of ares fields to download.",
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-          "obchodniFirma",
-          "obec",
-          "okres",
-          "mestskaCast",
-          "stat",
-          "ulice",
-          "psc",
-          "zahrPsc",
-          "kodOblasti",
-          "kodKraje",
-          "kodOkresu",
-          "kodObce",
-          "kodPrazskehoObvodu",
-          "kodNobvod",
-          "kodCastiObce",
-          "kodMestskeCasti",
-          "kodUlice",
-          "kodAdresy",
-          "kodObjektu",
-          "pocetPrac",
-          "zanikl",
-          "platceDPH",
-          "datumVzniku",
-          "pravniForma",
-          "dic",
-          "nace",
-          "oboryCinnosti",
-          "ALL"
-        ]
-      },
-      "minItems": 0,
-      "uniqueItems": true
-    }
-  },
-  "required": [
-    "aresColumns"
-  ]
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Ares extractor KBC configuration",
+    "description": "Ares extractor KBC configuration",
+    "type": "object",
+    "properties": {
+        "aresColumns": {
+            "description": "List of ares fields to download.",
+            "type": "array",
+            "format": "checkbox",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "enum": [
+                    "ALL",
+                    "obchodniFirma",
+                    "obec",
+                    "okres",
+                    "mestskaCast",
+                    "stat",
+                    "ulice",
+                    "psc",
+                    "zahrPsc",
+                    "kodOblasti",
+                    "kodKraje",
+                    "kodOkresu",
+                    "kodObce",
+                    "kodPrazskehoObvodu",
+                    "kodNobvod",
+                    "kodCastiObce",
+                    "kodMestskeCasti",
+                    "kodUlice",
+                    "kodAdresy",
+                    "kodObjektu",
+                    "pocetPrac",
+                    "zanikl",
+                    "platceDPH",
+                    "datumVzniku",
+                    "pravniForma",
+                    "dic",
+                    "nace",
+                    "oboryCinnosti"
+                ]
+            },
+            "minItems": 0,
+            "uniqueItems": true
+        }
+    },
+    "required": [
+        "aresColumns"
+    ]
 }
