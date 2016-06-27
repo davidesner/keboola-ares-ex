@@ -143,8 +143,7 @@ public class Extractor {
         BufferedReader bf;
         try {
             bf = new BufferedReader(new FileReader(sourceFile));
-            String s = "";
-            while ((s = bf.readLine()) != null && rowNumber < 900) {
+            while (bf.readLine() != null) {
                 rowNumber++;
             }
         } catch (FileNotFoundException ex) {
