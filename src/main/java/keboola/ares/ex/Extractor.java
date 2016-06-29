@@ -56,11 +56,12 @@ import org.supercsv.prefs.CsvPreference;
  * @created 2016
  */
 public class Extractor {
-
+    
     private static final int REQUEST_LIMIT_DAY = 900;
     private static final int REQUEST_LIMIT_NIGHT = 4500;
+    private static final long REQUEST_SLEEP_INTERVAL = 500;
     private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124", "395", "1047", "1048"});
-
+    
     private static int getRequestLimitByDate() {
         Calendar currDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
         if (currDate.get(Calendar.HOUR_OF_DAY) <= 18 && currDate.get(Calendar.HOUR_OF_DAY) >= 8) {
@@ -69,9 +70,9 @@ public class Extractor {
             return REQUEST_LIMIT_NIGHT;
         }
     }
-
+    
     public static void main(String[] args) {
-
+        
         if (args.length == 0) {
             System.out.print("No parameters provided.");
             System.exit(1);
@@ -153,7 +154,7 @@ public class Extractor {
             System.err.println("Unable to read source file: " + sourceFileName);
             System.exit(1);
         }
-
+        
         try {
             File smf = new File(sourceFile.getAbsolutePath() + ".manifest");
             sourceMf = ManifestParser.parseFile(smf);
@@ -188,13 +189,13 @@ public class Extractor {
         Calendar currDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
         Calendar lastRunDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
         if (lastState != null) {
-
+            
             try {
                 if (lastState.getLastRunDate() != null) {
                     lastRunDate.setTime(lastState.getLastRunDate());
                     lastRqCount = lastState.getRqCount();
                 }
-
+                
             } catch (NullPointerException ex) {
                 System.out.println("No matching state.");
             }
@@ -205,10 +206,10 @@ public class Extractor {
         //limit reset
         int lastRunHour = lastRunDate.get(Calendar.HOUR_OF_DAY);
         int currDateHour = currDate.get(Calendar.HOUR_OF_DAY);
-
+        
         DateTime currDateTime = new DateTime(currDate.getTime());
         DateTime lastRunDateTime = new DateTime(lastRunDate.getTime());
-
+        
         if (currDateHour > 18 || currDateHour < 8) {
             if (Hours.hoursBetween(lastRunDateTime, currDateTime).getHours() > 13) {
                 limitReset = true;
@@ -217,7 +218,7 @@ public class Extractor {
                 limitReset = true;
             }
         }
-
+        
         if (currDateHour <= 18 && currDateHour >= 8) {
             if (Hours.hoursBetween(lastRunDateTime, currDateTime).getHours() > 11) {
                 limitReset = true;
@@ -237,21 +238,21 @@ public class Extractor {
         } else {
             ls = new LastState(currDate.getTime(), rowNumber);
         }
-
+        
         try {
             JsonStateWriter.writeStateFile(dataPath + File.separator + "out", ls);
         } catch (IOException ex) {
             System.err.println("Error building state file " + ex.getMessage());
             System.exit(1);
         }
-
+        
         System.out.println("Downloading ARES info. Request limit: " + (ls.getRqCount()) + " out of " + getRequestLimitByDate());
         ARESGetClient client = new ARESGetClient();
         Map<String, Integer> header = new HashMap();
         Map<String, Integer> newHeader = new HashMap();
         String[] line;
         BufferedReader reader = null;
-
+        
         ICsvBeanWriter aresInfoWriter = null;
         ICsvBeanWriter naceWriter = null;
         ICsvBeanWriter oboryWriter = null;
@@ -300,6 +301,7 @@ public class Extractor {
             boolean firstRun = true;
             List<AresInfoBasicRowBean> infoRows = new ArrayList();
             while ((line = csvreader.readNext()) != null) {
+                Thread.sleep(REQUEST_SLEEP_INTERVAL);
                 currIco = line[0];
                 AresOdpovedi resp = client.getBasicInfoByIco(currIco);
                 AresInfoBasicRowBean infoRow = new AresInfoBasicRowBean(resp, currIco);
@@ -332,7 +334,7 @@ public class Extractor {
                     OboryCinnosti2 obory = resp.getOdpoved().get(0).getVBAS().get(0).getOboryCinnosti();
                     if (obory != null) {
                         AresInfoOborRowBeanList oboryRows = new AresInfoOborRowBeanList(obory, currIco);
-
+                        
                         for (AresInfoOborRowBean b : oboryRows.getNaceRowList()) {
                             oboryWriter.write(b, new String[]{"ico", "kod_oboru", "obor_nazev"}, oboryProcess);
                         }
@@ -380,7 +382,7 @@ public class Extractor {
                 Logger.getLogger(Extractor.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
     }
 
 
@@ -389,10 +391,10 @@ public class Extractor {
         CellProcessor[] processors = new CellProcessor[length];
         for (int i = 0; i < length; i++) {
             processors[i] = new Optional();
-
+            
         }
-
+        
         return processors;
     }
-
+    
 }
