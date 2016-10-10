@@ -27,8 +27,8 @@ import org.apache.http.impl.client.HttpClients;
  */
 public class ARESGetClient {
 
-    private static final String STANDARD_REQUEST_URL = "http://89.187.145.204:7555/cgi-bin/ares/darv_std.cgi";
-    private static final String BASIC_REQUEST_URL = "http://89.187.145.204:7555/cgi-bin/ares/darv_bas.cgi";
+    private static final String STANDARD_REQUEST_URL = "http://85.255.5.12:7555/cgi-bin/ares/darv_std.cgi";
+    private static final String BASIC_REQUEST_URL = "http://85.255.5.12:7555/cgi-bin/ares/darv_bas.cgi";
     private final HttpClient client;
 
     public ARESGetClient() {
