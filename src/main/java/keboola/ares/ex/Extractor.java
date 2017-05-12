@@ -2,14 +2,6 @@
  */
 package keboola.ares.ex;
 
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.CSVWriter;
-import keboola.ares.ex.beans.AresInfoBasicRowBean;
-import keboola.ares.ex.beans.AresInfoNaceRowBeanList;
-
-import cz.ares.basic.AresOdpovedi;
-import cz.ares.basic.Nace2;
-import cz.ares.basic.OboryCinnosti2;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,19 +21,7 @@ import java.util.Set;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import keboola.ares.ex.beans.AresInfoNaceRowBean;
-import keboola.ares.ex.beans.AresInfoOborRowBean;
-import keboola.ares.ex.beans.AresInfoOborRowBeanList;
-import keboola.ares.ex.client.ClientException;
-import keboola.ares.ex.client.ARESGetClient;
-import keboola.ares.ex.config.JsonConfigParser;
-import keboola.ares.ex.config.KBCConfig;
-import keboola.ares.ex.config.YamlConfigParser;
-import keboola.ares.ex.config.tableconfig.ManifestBuilder;
-import keboola.ares.ex.config.tableconfig.ManifestFile;
-import keboola.ares.ex.config.tableconfig.ManifestParser;
-import keboola.ares.ex.state.LastState;
-import keboola.ares.ex.state.JsonStateWriter;
+
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
 import org.supercsv.cellprocessor.Optional;
@@ -49,6 +29,27 @@ import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
+
+import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.CSVWriter;
+import cz.ares.basic.AresOdpovedi;
+import cz.ares.basic.Nace2;
+import cz.ares.basic.OboryCinnosti2;
+import keboola.ares.ex.beans.AresInfoBasicRowBean;
+import keboola.ares.ex.beans.AresInfoNaceRowBean;
+import keboola.ares.ex.beans.AresInfoNaceRowBeanList;
+import keboola.ares.ex.beans.AresInfoOborRowBean;
+import keboola.ares.ex.beans.AresInfoOborRowBeanList;
+import keboola.ares.ex.client.ARESGetClient;
+import keboola.ares.ex.client.ClientException;
+import keboola.ares.ex.config.JsonConfigParser;
+import keboola.ares.ex.config.KBCConfig;
+import keboola.ares.ex.config.YamlConfigParser;
+import keboola.ares.ex.config.tableconfig.ManifestBuilder;
+import keboola.ares.ex.config.tableconfig.ManifestFile;
+import keboola.ares.ex.config.tableconfig.ManifestParser;
+import keboola.ares.ex.state.JsonStateWriter;
+import keboola.ares.ex.state.LastState;
 
 /**
  *
@@ -60,7 +61,7 @@ public class Extractor {
     private static final int REQUEST_LIMIT_DAY = 900;
     private static final int REQUEST_LIMIT_NIGHT = 4500;
     private static final long REQUEST_SLEEP_INTERVAL = 2000;
-    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124", "395", "1047", "1048"});
+    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124", "395", "1047", "1048", "2440"});
 
     private static int getRequestLimitByDate() {
         Calendar currDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
