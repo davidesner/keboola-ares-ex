@@ -61,7 +61,7 @@ public class Extractor {
     private static final int REQUEST_LIMIT_DAY = 900;
     private static final int REQUEST_LIMIT_NIGHT = 4500;
     private static final long REQUEST_SLEEP_INTERVAL = 2000;
-    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124", "395", "1047", "1048", "2440", "2855"});
+    private static final List<String> ALLOWED_PROJECTS = Arrays.asList(new String[]{"1124", "395", "1047", "1048", "2440", "2855", "646"});
 
     private static int getRequestLimitByDate() {
         Calendar currDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Prague"));
